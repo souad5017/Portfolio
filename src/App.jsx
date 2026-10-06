@@ -1,10 +1,12 @@
+import Navbar from './components/visitor/Navbar'
+import Hero from './components/visitor/Hero'
+
 function App() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-bold">
-        My Portfolio
-      </h1>
-    </main>
+    <>
+      <Navbar />
+      <Hero />
+    </>
   )
 }
 
