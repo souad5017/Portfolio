@@ -1,23 +1,5 @@
-import Navbar from './components/visitor/Navbar'
-import Hero from './components/visitor/Hero'
-import About from './components/visitor/About'
-import Technologies from './components/visitor/Technologies'
-import Projects from './components/visitor/Projects'
-import Contact from './components/visitor/Contact'
-import Footer from './components/visitor/Footer'
+import AppRoutes from './routes/AppRoutes.jsx';
 
-function App() {
-  return (
-    <>
-      <Navbar />
-      <Hero />
-      <About />
-      <Technologies />
-      <Projects />
-      <Contact />
-      <Footer />
-    </>
-  )
+export default function App() {
+  return <AppRoutes />;
 }
-
-export default App
