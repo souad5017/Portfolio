@@ -2,6 +2,24 @@ const paths = {
     arrow: <path d="M5 12h14M14 7l5 5-5 5" />,
     code: <path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14" />,
     download: <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />,
+    education: (
+        <>
+            <path d="m3 10 9-5 9 5-9 5-9-5Z" />
+            <path d="M7 12.5V17c3 2.5 7 2.5 10 0v-4.5" />
+        </>
+    ),
+    certificate: (
+        <>
+            <circle cx="12" cy="9" r="6" />
+            <path d="m8.5 14-1 7 4.5-2 4.5 2-1-7" />
+        </>
+    ),
+    mail: (
+        <>
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3 7 9 6 9-6" />
+        </>
+    ),
     external: (
         <>
             <path d="M14 4h6v6M20 4l-9 9" />
