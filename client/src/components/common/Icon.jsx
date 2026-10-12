@@ -8,6 +8,7 @@ const paths = {
             <path d="M7 12.5V17c3 2.5 7 2.5 10 0v-4.5" />
         </>
     ),
+    back: <path d="M19 12H5M10 17l-5-5 5-5" />,
     certificate: (
         <>
             <circle cx="12" cy="9" r="6" />
