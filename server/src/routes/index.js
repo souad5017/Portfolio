@@ -1,5 +1,9 @@
-const router = require('express').Router();
+import { Router } from 'express';
+import projectRoutes from './projectRoutes.js';
+
+const router = Router();
 
 router.get('/health', (req, res) => res.json({ status: 'ok' }));
+router.use('/projects', projectRoutes);
 
-module.exports = router;
+export default router;
