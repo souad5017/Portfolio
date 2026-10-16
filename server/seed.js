@@ -144,10 +144,11 @@ const seed = async () => {
             description: 'Intensive training in web engineering, data modeling, agile methods, and end-to-end application development.',
         },
         {
-            school: 'Computer Science Foundations',
-            degree: 'Core programming, algorithms, and systems concepts',
+            school: 'High School',
+            degree: 'Computer Science Foundations',
             startDate: new Date('2022-09-01'),
             endDate: new Date('2023-07-01'),
+            description: 'Core programming, algorithms, and systems concepts.',
         },
     ]);
 
