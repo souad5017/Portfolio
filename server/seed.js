@@ -1,15 +1,15 @@
-require('dotenv').config();
-const bcrypt = require('bcrypt');
-const connectDB = require('./src/config/db');
-const User = require('./src/models/User');
-const Profile = require('./src/models/Profile');
-const Technology = require('./src/models/Technology');
-const Project = require('./src/models/Project');
-const Experience = require('./src/models/Experience');
-const Education = require('./src/models/Education');
-const Certificate = require('./src/models/Certificate');
-const Message = require('./src/models/Message');
-const Skill = require('./src/models/Skill');
+import 'dotenv/config';
+import bcrypt from 'bcrypt';
+import connectDB from './src/config/db.js';
+import User from './src/models/User.js';
+import Profile from './src/models/Profile.js';
+import Technology from './src/models/Technology.js';
+import Skill from './src/models/Skill.js';
+import Project from './src/models/Project.js';
+import Experience from './src/models/Experience.js';
+import Education from './src/models/Education.js';
+import Certificate from './src/models/Certificate.js';
+import Message from './src/models/Message.js';
 
 const technologiesByCategory = {
     Frontend: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Tailwind CSS'],

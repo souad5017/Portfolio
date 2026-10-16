@@ -1,15 +1,19 @@
 import SectionHead from '../common/SectionHead.jsx';
 import Tag from '../common/Tag.jsx';
 import Icon from '../common/Icon.jsx';
+import useFetch from '../../hooks/useFetch.js';
+import { getSkills } from '../../services/skillService.js';
 
-const skillGroups = [
-  { number: '01', title: 'Frontend', note: 'Interfaces with purpose', skills: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Tailwind CSS'] },
-  { number: '02', title: 'Backend', note: 'Reliable foundations', skills: ['Node.js', 'Express.js', 'EJS', 'REST API'] },
-  { number: '03', title: 'Database', note: 'Structured intelligence', skills: ['MySQL', 'SQL'] },
-  { number: '04', title: 'Tools', note: 'A deliberate workflow', skills: ['Git', 'GitHub', 'VS Code', 'Postman', 'Jira'] },
+const categories = [
+  { title: 'Frontend', note: 'Interfaces with purpose' },
+  { title: 'Backend', note: 'Reliable foundations' },
+  { title: 'Database', note: 'Structured intelligence' },
+  { title: 'Tools', note: 'A deliberate workflow' },
 ];
 
 export default function Skills() {
+  const { data: skills } = useFetch(getSkills);
+
   return (
     <section className="section section-tint" id="skills">
       <div className="shell">
@@ -19,13 +23,15 @@ export default function Skills() {
           text="A growing collection of technologies I use to turn considered concepts into fast, accessible, and maintainable digital products."
         />
         <div className="skills-grid">
-          {skillGroups.map(({ number, title, note, skills }) => (
+          {categories.map(({ title, note }, i) => (
             <article className="skill-card" key={title}>
-              <div className="skill-top"><span>{number}</span><Icon name="code" /></div>
+              <div className="skill-top"><span>0{i + 1}</span><Icon name="code" /></div>
               <h3>{title}</h3>
               <p>{note}</p>
               <div className="skill-list">
-                {skills.map((skill) => <Tag key={skill}>{skill}</Tag>)}
+                {skills?.filter((skill) => skill.category === title).map((skill) => (
+                  <Tag key={skill._id}>{skill.name}</Tag>
+                ))}
               </div>
             </article>
           ))}
