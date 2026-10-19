@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import Icon from '../common/Icon.jsx';
-import { profile } from '../../data/profile.js';
 
-export default function Footer() {
+
+export default function Footer({ profile }) {
   return (
     <footer>
       <div className="shell footer-inner">

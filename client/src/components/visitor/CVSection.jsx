@@ -1,7 +1,6 @@
 import Button from '../common/Button.jsx';
-import { profile } from '../../data/profile.js';
 
-export default function CVSection() {
+export default function CVSection({ profile }) {
   return (
     <section className="section shell" id="cv">
       <div className="cv-wrap">
