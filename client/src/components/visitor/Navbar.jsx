@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Icon from '../common/Icon.jsx';
-import { profile } from '../../data/profile.js';
+
 
 const links = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Education', 'Certificates', 'CV', 'Contact'];
 
-export default function Navbar({ dark, toggleTheme }) {
+export default function Navbar({profile, dark, toggleTheme }) {
   const [open, setOpen] = useState(false);
 
   return (

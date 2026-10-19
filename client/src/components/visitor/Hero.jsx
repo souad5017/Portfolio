@@ -1,8 +1,7 @@
 import Button from '../common/Button.jsx';
 import Icon from '../common/Icon.jsx';
-import { profile } from '../../data/profile.js';
 
-export default function Hero() {
+export default function Hero({ profile }) {
   return (
     <section className="hero shell" id="home">
       <div className="hero-grid">
@@ -32,7 +31,7 @@ export default function Hero() {
             <div className="portrait-noise" />
             <div className="portrait-monogram">{profile.firstName[0]}</div>
             <div className="portrait-caption">
-              <div><small>Based in</small><strong>Morocco</strong></div>
+              <div><small>Based in</small><strong>{profile.location}</strong></div>
               <span>MA</span>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { useOutletContext } from 'react-router-dom';
 import Hero from '../../components/visitor/Hero.jsx';
 import About from '../../components/visitor/About.jsx';
 import Skills from '../../components/visitor/Skills.jsx';
@@ -9,17 +10,19 @@ import CVSection from '../../components/visitor/CVSection.jsx';
 import Contact from '../../components/visitor/Contact.jsx';
 
 export default function Home() {
+  const profile = useOutletContext();
+
   return (
     <>
-      <Hero />
+      <Hero profile={profile} />
       <About />
       <Skills />
       <Projects />
       <Experience />
       <Education />
       <Certificates />
-      <CVSection />
-      <Contact />
+      <CVSection profile={profile} />
+      <Contact profile={profile} />
     </>
   );
 }
