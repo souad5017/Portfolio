@@ -8,6 +8,7 @@ import certificateRoutes from './certificateRoutes.js';
 import messageRoutes from './messageRoutes.js';
 import profileRoutes from './profileRoutes.js';
 import dashboardRoutes from './dashboardRoutes.js';
+import authRoutes from './authRoutes.js';
 
 const router = Router();
 
@@ -21,5 +22,6 @@ router.use('/certificates', certificateRoutes);
 router.use('/messages', messageRoutes);
 router.use('/profile', profileRoutes);
 router.use('/dashboard', dashboardRoutes);
+router.use('/auth', authRoutes);
 
 export default router;
