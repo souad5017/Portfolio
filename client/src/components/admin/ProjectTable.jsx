@@ -1,12 +1,17 @@
+import { Link } from 'react-router-dom';
+import AdminIcon from './AdminIcon.jsx';
 import Badge from './Badge.jsx';
 import { formatDate, initials } from '../../utils/format.js';
 
-export default function ProjectTable({ projects }) {
+export default function ProjectTable({ projects, onDelete }) {
   return (
     <div className="table-scroll">
       <table>
         <thead>
-          <tr><th>Project</th><th>Technologies</th><th>Status</th><th>Date</th></tr>
+          <tr>
+            <th>Project</th><th>Technologies</th><th>Status</th><th>Date</th>
+            {onDelete && <th />}
+          </tr>
         </thead>
         <tbody>
           {projects.map((project) => (
@@ -36,6 +41,21 @@ export default function ProjectTable({ projects }) {
                 </Badge>
               </td>
               <td className="date-cell">{formatDate(project.endDate ?? project.startDate)}</td>
+              {onDelete && (
+                <td>
+                  <div className="row-actions">
+                    <a href={`/projects/${project._id}`} target="_blank" rel="noreferrer" aria-label="View">
+                      <AdminIcon name="eye" size={16} />
+                    </a>
+                    <Link to={`/admin/projects/${project._id}/edit`} aria-label="Edit">
+                      <AdminIcon name="edit" size={16} />
+                    </Link>
+                    <button onClick={() => onDelete(project)} aria-label="Delete">
+                      <AdminIcon name="trash" size={16} />
+                    </button>
+                  </div>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -8,6 +8,9 @@ import Dashboard from '../pages/admin/Dashboard.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import { AuthProvider } from '../context/AuthContext.jsx';
 import visitorCss from '../styles/visitor.css?inline';
+import Projects from '../pages/admin/Projects.jsx';
+import ProjectForm from '../components/admin/ProjectForm.jsx';
+import EditProject from '../pages/admin/EditProject.jsx';
 
 export default function AppRoutes() {
   return (
@@ -21,6 +24,9 @@ export default function AppRoutes() {
         <Route element={<AuthProvider><Outlet /></AuthProvider>}>
           <Route path="/admin/login" element={<Login />} />
           <Route element={<ProtectedRoute />}>
+            <Route path="/admin/projects" element={<Projects />} />
+            <Route path="/admin/projects/new" element={<ProjectForm />} />
+            <Route path="/admin/projects/:id/edit" element={<EditProject />} />
             <Route path="/admin" element={<Dashboard />} />
           </Route>
         </Route>
