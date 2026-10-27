@@ -7,7 +7,7 @@ const crud = (Model, { populate, sort = {}, filter = () => ({}) } = {}) => {
     },
 
     getOne: async (req, res) => {
-      const doc = await withPopulate(Model.findById(req.params.id));
+      const doc = await withPopulate(Model.findOne({ _id: req.params.id, ...filter(req) }));
       if (!doc) return res.status(404).json({ message: 'Not found' });
       res.json(doc);
     },

@@ -11,3 +11,13 @@ export const protect = (req, res, next) => {
     res.status(401).json({ message: 'Invalid or expired token' });
   }
 };
+
+export const attachUser = (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (token) req.userId = jwt.verify(token, process.env.JWT_SECRET).id;
+  } catch {
+    // jeton invalide ou expiré : la requête est traitée comme celle d'un visiteur
+  }
+  next();
+};
