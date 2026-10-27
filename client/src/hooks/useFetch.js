@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function useFetch(fetcher, arg) {
   const [state, setState] = useState({ data: null, loading: true, error: null });
+  const [version, setVersion] = useState(0);
 
   useEffect(() => {
     let ignore = false;
@@ -15,7 +16,9 @@ export default function useFetch(fetcher, arg) {
     return () => {
       ignore = true;
     };
-  }, [fetcher, arg]);
+  }, [fetcher, arg, version]);
 
-  return state;
+  const reload = useCallback(() => setVersion((v) => v + 1), []);
+
+  return { ...state, reload };
 }
