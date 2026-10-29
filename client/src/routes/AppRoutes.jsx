@@ -11,6 +11,8 @@ import visitorCss from '../styles/visitor.css?inline';
 import Projects from '../pages/admin/Projects.jsx';
 import ProjectForm from '../components/admin/ProjectForm.jsx';
 import EditProject from '../pages/admin/EditProject.jsx';
+import Technologies from '../pages/admin/Technologies.jsx';
+import Skills from '../pages/admin/Skills.jsx';
 
 export default function AppRoutes() {
   return (
@@ -27,6 +29,8 @@ export default function AppRoutes() {
             <Route path="/admin/projects" element={<Projects />} />
             <Route path="/admin/projects/new" element={<ProjectForm />} />
             <Route path="/admin/projects/:id/edit" element={<EditProject />} />
+            <Route path="/admin/technologies" element={<Technologies />} />
+            <Route path="/admin/skills" element={<Skills />} />
             <Route path="/admin" element={<Dashboard />} />
           </Route>
         </Route>

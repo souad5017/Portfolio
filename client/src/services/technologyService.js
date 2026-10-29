@@ -1,3 +1,4 @@
-import api from './api.js';
+import createResourceService from './resourceService.js';
 
-export const getTechnologies = () => api.get('/technologies').then((res) => res.data);
+export const technologyService = createResourceService('/technologies');
+export const getTechnologies = technologyService.list;
