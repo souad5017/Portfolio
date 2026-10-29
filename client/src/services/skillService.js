@@ -1,3 +1,4 @@
-import api from './api.js';
+import createResourceService from './resourceService.js';
 
-export const getSkills = () => api.get('/skills').then((res) => res.data);
+export const skillService = createResourceService('/skills');
+export const getSkills = skillService.list;
