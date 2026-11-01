@@ -1,3 +1,4 @@
-import api from './api.js';
+import createResourceService from './resourceService.js';
 
-export const getEducation = () => api.get('/education').then((res) => res.data);
+export const educationService = createResourceService('/education');
+export const getEducation = educationService.list;

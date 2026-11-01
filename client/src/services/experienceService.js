@@ -1,3 +1,4 @@
-import api from './api.js';
+import createResourceService from './resourceService.js';
 
-export const getExperiences = () => api.get('/experiences').then((res) => res.data);
+export const experienceService = createResourceService('/experiences');
+export const getExperiences = experienceService.list;

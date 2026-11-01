@@ -1,3 +1,4 @@
-import api from './api.js';
+import createResourceService from './resourceService.js';
 
-export const getCertificates = () => api.get('/certificates').then((res) => res.data);
+export const certificateService = createResourceService('/certificates');
+export const getCertificates = certificateService.list;
