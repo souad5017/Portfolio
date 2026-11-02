@@ -10,7 +10,7 @@ import { getIdentity } from '../../utils/identity.js';
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { data: profile } = useFetch(getProfile);
+  const { data: profile, reload: refreshProfile } = useFetch(getProfile);
   const { data: stats, reload: refreshStats } = useFetch(getStats);
   const identity = getIdentity(profile ?? emptyProfile);
 
@@ -27,7 +27,7 @@ export default function AdminLayout() {
       )}
       <div className="workspace">
         <Header identity={identity} openMenu={() => setSidebarOpen(true)} />
-        <main className="main-content"><Outlet context={{ refreshStats }} /></main>
+        <main className="main-content"><Outlet context={{ refreshStats, refreshProfile }} /></main>
       </div>
     </div>
   );

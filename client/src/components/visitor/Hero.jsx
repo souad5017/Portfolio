@@ -11,7 +11,7 @@ export default function Hero({ profile }) {
           <h1>{profile.firstName}<br /><span>{profile.lastName}.</span></h1>
           <div className="role-row"><span>{profile.role}</span><i /></div>
           <p className="hero-description">
-            I build modern, responsive and user-focused web applications — where thoughtful design meets reliable engineering.
+            {profile.intro || 'I build modern, responsive and user-focused web applications — where thoughtful design meets reliable engineering.'}
           </p>
           <div className="hero-buttons">
             <Button href="#projects" icon="arrow">View my projects</Button>

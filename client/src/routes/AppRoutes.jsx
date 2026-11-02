@@ -1,15 +1,15 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import StyleScope from '../components/common/StyleScope.jsx';
 import VisitorLayout from '../components/visitor/VisitorLayout.jsx';
 import Home from '../pages/visitor/Home.jsx';
 import ProjectDetail from '../pages/visitor/ProjectDetail.jsx';
+import AdminLayout from '../components/admin/AdminLayout.jsx';
+import ProjectForm from '../components/admin/ProjectForm.jsx';
+import PageHeader from '../components/admin/PageHeader.jsx';
 import Login from '../pages/admin/Login.jsx';
 import Dashboard from '../pages/admin/Dashboard.jsx';
-import ProtectedRoute from './ProtectedRoute.jsx';
-import { AuthProvider } from '../context/AuthContext.jsx';
-import visitorCss from '../styles/visitor.css?inline';
+import Profile from '../pages/admin/Profile.jsx';
 import Projects from '../pages/admin/Projects.jsx';
-import ProjectForm from '../components/admin/ProjectForm.jsx';
 import EditProject from '../pages/admin/EditProject.jsx';
 import Technologies from '../pages/admin/Technologies.jsx';
 import Skills from '../pages/admin/Skills.jsx';
@@ -17,6 +17,10 @@ import Experiences from '../pages/admin/Experiences.jsx';
 import Education from '../pages/admin/Education.jsx';
 import Certificates from '../pages/admin/Certificates.jsx';
 import Messages from '../pages/admin/Messages.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
+import { AuthProvider } from '../context/AuthContext.jsx';
+import visitorCss from '../styles/visitor.css?inline';
+import adminCss from '../styles/admin.css?inline';
 
 export default function AppRoutes() {
   return (
@@ -26,10 +30,14 @@ export default function AppRoutes() {
           <Route path="/" element={<Home />} />
         </Route>
         <Route path="/projects/:id" element={<ProjectDetail />} />
+      </Route>
 
-        <Route element={<AuthProvider><Outlet /></AuthProvider>}>
-          <Route path="/admin/login" element={<Login />} />
-          <Route element={<ProtectedRoute />}>
+      <Route element={<AuthProvider><StyleScope css={adminCss} /></AuthProvider>}>
+        <Route path="/admin/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/admin/profile" element={<Profile />} />
             <Route path="/admin/projects" element={<Projects />} />
             <Route path="/admin/projects/new" element={<ProjectForm />} />
             <Route path="/admin/projects/:id/edit" element={<EditProject />} />
@@ -39,7 +47,7 @@ export default function AppRoutes() {
             <Route path="/admin/education" element={<Education />} />
             <Route path="/admin/certificates" element={<Certificates />} />
             <Route path="/admin/messages" element={<Messages />} />
-            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/admin/*" element={<PageHeader title="Coming soon" description="This section is not built yet." />} />
           </Route>
         </Route>
       </Route>
