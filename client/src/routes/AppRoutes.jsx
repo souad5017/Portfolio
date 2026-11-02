@@ -16,6 +16,7 @@ import Skills from '../pages/admin/Skills.jsx';
 import Experiences from '../pages/admin/Experiences.jsx';
 import Education from '../pages/admin/Education.jsx';
 import Certificates from '../pages/admin/Certificates.jsx';
+import Messages from '../pages/admin/Messages.jsx';
 
 export default function AppRoutes() {
   return (
@@ -37,6 +38,7 @@ export default function AppRoutes() {
             <Route path="/admin/experiences" element={<Experiences />} />
             <Route path="/admin/education" element={<Education />} />
             <Route path="/admin/certificates" element={<Certificates />} />
+            <Route path="/admin/messages" element={<Messages />} />
             <Route path="/admin" element={<Dashboard />} />
           </Route>
         </Route>

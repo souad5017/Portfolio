@@ -10,3 +10,12 @@ export const timeAgo = (date) => {
   if (minutes < 1440) return `${Math.floor(minutes / 60)} hr`;
   return `${Math.floor(minutes / 1440)} day`;
 };
+
+export const formatDateTime = (date) =>
+  new Date(date).toLocaleString('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
