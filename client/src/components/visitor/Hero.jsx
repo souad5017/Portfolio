@@ -28,8 +28,11 @@ export default function Hero({ profile }) {
           <div className="orbit orbit-a" /><div className="orbit orbit-b" />
           <div className="code-chip chip-a"><span>01</span><code>{'const craft = "intentional";'}</code></div>
           <div className="portrait-frame">
-            <div className="portrait-noise" />
-            <div className="portrait-monogram">{profile.firstName[0]}</div>
+            {profile.photo ? (
+              <img className="portrait-photo" src={profile.photo} alt={`${profile.firstName} ${profile.lastName}`} />
+            ) : (
+              <div className="portrait-monogram">{profile.firstName[0]}</div>
+            )}
             <div className="portrait-caption">
               <div><small>Based in</small><strong>{profile.location}</strong></div>
               <span>MA</span>
