@@ -15,6 +15,7 @@ const profileSchema = new mongoose.Schema(
     github: { type: String },
     linkedin: { type: String },
     website: { type: String },
+    photo: { type: String },
     cvUrl: { type: String },
   },
   { timestamps: true }

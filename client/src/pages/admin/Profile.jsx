@@ -7,16 +7,37 @@ import Field from '../../components/admin/Field.jsx';
 import PageHeader from '../../components/admin/PageHeader.jsx';
 import useFetch from '../../hooks/useFetch.js';
 import { getProfile, updateProfile } from '../../services/profileService.js';
+import { uploadImage } from '../../services/uploadService.js';
+import { initials } from '../../utils/format.js';
 
 export default function Profile() {
   const { refreshProfile } = useOutletContext();
   const { data, loading } = useFetch(getProfile);
+  const [photoDraft, setPhotoDraft] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
 
   if (loading) return null;
   const profile = data ?? {};
+  const photo = photoDraft ?? profile.photo ?? '';
+
+  const handleFile = async (event) => {
+    const input = event.target;
+    const file = input.files[0];
+    if (!file) return;
+    setUploading(true);
+    setError('');
+    try {
+      setPhotoDraft(await uploadImage(file));
+    } catch {
+      setError('Photo upload failed (PNG, JPG or WebP, 5MB max).');
+    } finally {
+      setUploading(false);
+      input.value = '';
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +45,7 @@ export default function Profile() {
     setSaved(false);
     setError('');
     try {
-      await updateProfile(Object.fromEntries(new FormData(event.currentTarget)));
+      await updateProfile({ ...Object.fromEntries(new FormData(event.currentTarget)), photo });
       refreshProfile();
       setSaved(true);
     } catch (err) {
@@ -57,6 +78,29 @@ export default function Profile() {
               <p>Your core details and public identity</p>
             </div>
           </div>
+
+          <div className="photo-editor">
+            <div
+              className="photo"
+              style={photo ? { backgroundImage: `url("${photo}")`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
+            >
+              {!photo && initials(`${profile.firstName ?? ''} ${profile.lastName ?? ''}`)}
+            </div>
+            <div>
+              <strong>Profile photo</strong>
+              <p>PNG, JPG or WebP up to 5MB</p>
+              <div className="inline-actions">
+                <label className="btn btn-secondary">
+                  {uploading ? 'Uploading...' : photo ? 'Replace photo' : 'Upload photo'}
+                  <input type="file" accept="image/png,image/jpeg,image/webp" hidden onChange={handleFile} />
+                </label>
+                {photo && (
+                  <AdminButton variant="ghost" onClick={() => setPhotoDraft('')}>Remove</AdminButton>
+                )}
+              </div>
+            </div>
+          </div>
+
           <div className="form-grid">
             <Field label="First name" name="firstName" required defaultValue={profile.firstName} />
             <Field label="Last name" name="lastName" required defaultValue={profile.lastName} />
@@ -98,7 +142,7 @@ export default function Profile() {
 
         {error && <p className="form-error">{error}</p>}
         <div className="save-bar">
-          <AdminButton type="submit" icon="check" disabled={saving}>
+          <AdminButton type="submit" icon="check" disabled={saving || uploading}>
             {saving ? 'Saving...' : 'Save changes'}
           </AdminButton>
         </div>
