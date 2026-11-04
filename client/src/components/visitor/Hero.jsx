@@ -1,5 +1,6 @@
 import Button from '../common/Button.jsx';
 import Icon from '../common/Icon.jsx';
+import { cvUrl } from '../../services/cvService.js';
 
 export default function Hero({ profile }) {
   return (
@@ -15,7 +16,7 @@ export default function Hero({ profile }) {
           </p>
           <div className="hero-buttons">
             <Button href="#projects" icon="arrow">View my projects</Button>
-            <Button href={profile.cvUrl} variant="secondary" icon="download">Download CV</Button>
+            <Button href={cvUrl} variant="secondary" icon="download">Download CV</Button>
           </div>
           <div className="hero-socials">
             <span>Find me on</span><i />
