@@ -1,4 +1,5 @@
 import Button from '../common/Button.jsx';
+import { cvUrl } from '../../services/cvService.js';
 
 export default function CVSection({ profile }) {
   return (
@@ -27,7 +28,7 @@ export default function CVSection({ profile }) {
           <p>
             A concise overview of my experience, education, technical skills, and the path that shaped how I approach building digital products.
           </p>
-          <Button href={profile.cvUrl} icon="download">Download PDF</Button>
+          <Button href={cvUrl} icon="download">Download PDF</Button>
           <small>Souad-El-Barjiji-CV.pdf · Updated January 2026</small>
         </div>
       </div>
