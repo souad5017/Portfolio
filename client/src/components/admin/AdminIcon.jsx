@@ -86,6 +86,7 @@ const paths = {
             <path d="M5 15v5h14v-5" />
         </>
     ),
+    download: <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />,
     lock: (
         <>
             <rect x="4" y="10" width="16" height="11" rx="3" />
