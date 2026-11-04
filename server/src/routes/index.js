@@ -10,6 +10,7 @@ import profileRoutes from './profileRoutes.js';
 import dashboardRoutes from './dashboardRoutes.js';
 import authRoutes from './authRoutes.js';
 import uploadRoutes from './uploadRoutes.js';
+import cvRoutes from './cvRoutes.js';
 
 const router = Router();
 
@@ -25,5 +26,6 @@ router.use('/profile', profileRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/auth', authRoutes);
 router.use('/upload', uploadRoutes);
+router.use('/cv', cvRoutes);
 
 export default router;
