@@ -33,3 +33,22 @@ export const me = async (req, res) => {
   if (!user) return res.status(401).json({ message: 'Not authenticated' });
   res.json({ email: user.email });
 };
+
+export const changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (typeof currentPassword !== 'string' || typeof newPassword !== 'string') {
+    return res.status(400).json({ message: 'Current and new passwords are required' });
+  }
+  if (newPassword.length < 10 || newPassword.length > 72) {
+    return res.status(400).json({ message: 'The new password must be between 10 and 72 characters' });
+  }
+
+  const user = await User.findById(req.userId).select('+password');
+  if (!user || !(await bcrypt.compare(currentPassword, user.password))) {
+    return res.status(400).json({ message: 'Current password is incorrect' });
+  }
+
+  user.password = await bcrypt.hash(newPassword, 10);
+  await user.save();
+  res.status(204).end();
+};

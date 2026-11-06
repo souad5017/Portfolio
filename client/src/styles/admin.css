@@ -302,3 +302,4 @@ tbody tr:hover td { background: rgba(255,255,255,.01); }
 .cv-frame { display: block; width: 100%; height: 640px; border: 0; border-radius: 8px; background: #ececf0; }
 .cv-preview .section-head { margin-bottom: 14px; }
 .cv-preview > .btn { margin-top: 12px; }
+.narrow { max-width: 640px; }
