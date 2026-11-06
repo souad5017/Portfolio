@@ -16,6 +16,7 @@ const text = (value) => escapeHtml(value).replace(/\n/g, '<br>');
 const year = (date) => new Date(date).getFullYear();
 const period = (start, end) => `${year(start)} — ${end ? year(end) : 'Present'}`;
 const bare = (url) => url?.replace(/^https?:\/\//, '');
+export const cvFileName = ({ firstName, lastName }) => `${firstName}-${lastName}-CV.pdf`.replace(/[^\w.-]+/g, '-');
 const section = (title, body) => (body ? `<section><h2>${title}</h2>${body}</section>` : '');
 
 const styles = `
@@ -127,7 +128,7 @@ const generate = async () => {
     });
     return {
       pdf: Buffer.from(pdf),
-      fileName: `${profile.firstName}-${profile.lastName}-CV.pdf`.replace(/[^\w-.]+/g, '-'),
+      fileName: cvFileName(profile),
     };
   } finally {
     await browser.close();
