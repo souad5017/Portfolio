@@ -1,4 +1,6 @@
-const crud = (Model, { populate, sort = {}, filter = () => ({}) } = {}) => {
+import { removeUpload } from '../utils/uploads.js';
+
+const crud = (Model, { populate, sort = {}, filter = () => ({}), files = [] } = {}) => {
   const withPopulate = (query) => (populate ? query.populate(populate) : query);
 
   return {
@@ -17,14 +19,22 @@ const crud = (Model, { populate, sort = {}, filter = () => ({}) } = {}) => {
     },
 
     update: async (req, res) => {
+      const before = files.length ? await Model.findById(req.params.id).lean() : null;
       const doc = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
       if (!doc) return res.status(404).json({ message: 'Not found' });
+
+      if (before) {
+        const replaced = files.filter((field) => before[field] && before[field] !== doc[field]);
+        await Promise.all(replaced.map((field) => removeUpload(before[field])));
+      }
       res.json(doc);
     },
 
     remove: async (req, res) => {
       const doc = await Model.findByIdAndDelete(req.params.id);
       if (!doc) return res.status(404).json({ message: 'Not found' });
+
+      await Promise.all(files.map((field) => removeUpload(doc[field])));
       res.status(204).end();
     },
   };

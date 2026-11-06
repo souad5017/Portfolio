@@ -22,6 +22,7 @@ import { AuthProvider } from '../context/AuthContext.jsx';
 import visitorCss from '../styles/visitor.css?inline';
 import adminCss from '../styles/admin.css?inline';
 import CvManagement from '../pages/admin/CvManagement.jsx';
+import Settings from '../pages/admin/Settings.jsx';
 
 export default function AppRoutes() {
   return (
@@ -49,6 +50,7 @@ export default function AppRoutes() {
             <Route path="/admin/certificates" element={<Certificates />} />
             <Route path="/admin/messages" element={<Messages />} />
             <Route path="/admin/cv" element={<CvManagement />} />
+            <Route path="/admin/settings" element={<Settings />} />
             <Route path="/admin/*" element={<PageHeader title="Coming soon" description="This section is not built yet." />} />
           </Route>
         </Route>

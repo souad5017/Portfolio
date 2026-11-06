@@ -9,6 +9,7 @@ import useFetch from '../../hooks/useFetch.js';
 import { getProfile, updateProfile } from '../../services/profileService.js';
 import { uploadImage } from '../../services/uploadService.js';
 import { initials } from '../../utils/format.js';
+import Toast from '../../components/admin/Toast.jsx';
 
 export default function Profile() {
   const { refreshProfile } = useOutletContext();
@@ -59,16 +60,7 @@ export default function Profile() {
     <>
       <PageHeader title="My Profile" description="Manage your personal and professional information." />
 
-      {saved && (
-        <div className="toast success">
-          <AdminIcon name="check" />
-          <div>
-            <strong>Profile updated</strong>
-            <span>Your changes are now live.</span>
-          </div>
-          <button onClick={() => setSaved(false)} aria-label="Close"><AdminIcon name="close" size={16} /></button>
-        </div>
-      )}
+      {saved && <Toast title="Profile updated" text="Your changes are now live." onClose={() => setSaved(false)} />}
 
       <form className="form-stack" onSubmit={handleSubmit}>
         <Card>
