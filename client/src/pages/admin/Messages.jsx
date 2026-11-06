@@ -113,9 +113,11 @@ export default function Messages() {
               <div className="message-reply">
                 <a
                   className="btn btn-primary"
-                  href={`mailto:${active.email}?subject=${encodeURIComponent(`Re: ${active.subject}`)}`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(active.email)}&su=${encodeURIComponent(`Re: ${active.subject}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  Reply via email
+                  Reply via Gmail
                 </a>
                 <AdminButton variant="secondary" onClick={toggleRead}>
                   {active.isRead ? 'Mark as unread' : 'Mark as read'}

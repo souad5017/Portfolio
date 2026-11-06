@@ -5,28 +5,34 @@ import { sendMessage } from '../../services/messageService.js';
 
 const display = (url = '') => url.replace(/^https?:\/\//, '');
 
-const labels = {
-  idle: 'Send message',
-  sending: 'Sending…',
-  sent: 'Message sent — thank you',
-  error: 'Send message',
+const errorMessage = (err) => {
+  if (err.response?.status === 429) return 'Too many messages. Please try again later.';
+  if (err.response?.status === 400) return 'Please check your details and try again.';
+  return 'Something went wrong. Please try again.';
 };
 
 export default function Contact({ profile }) {
   const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (status === 'sending') return;
     const form = event.currentTarget;
     setStatus('sending');
+    setError('');
     try {
       await sendMessage(Object.fromEntries(new FormData(form)));
       form.reset();
       setStatus('sent');
-    } catch {
+    } catch (err) {
+      setError(errorMessage(err));
       setStatus('error');
     }
+  };
+
+  const clearFeedback = () => {
+    if (status === 'sent' || status === 'error') setStatus('idle');
   };
 
   const links = [
@@ -62,15 +68,18 @@ export default function Contact({ profile }) {
             </div>
           </div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form className="contact-form" onSubmit={handleSubmit} onChange={clearFeedback}>
             <div className="form-row">
-              <label><span>Name</span><input name="name" required placeholder="Your name" /></label>
-              <label><span>Email</span><input name="email" required type="email" placeholder="you@company.com" /></label>
+              <label><span>Name</span><input name="name" required maxLength={100} placeholder="Your name" /></label>
+              <label><span>Email</span><input name="email" required type="email" maxLength={254} placeholder="you@company.com" /></label>
             </div>
-            <label><span>Subject</span><input name="subject" required placeholder="Tell me what this is about" /></label>
-            <label><span>Message</span><textarea name="message" required rows={5} placeholder="A little about your project or opportunity..." /></label>
-            <Button type="submit" icon="arrow">{labels[status]}</Button>
-            {status === 'error' && <p className="muted">Something went wrong. Please try again.</p>}
+            <label><span>Subject</span><input name="subject" required maxLength={150} placeholder="Tell me what this is about" /></label>
+            <label><span>Message</span><textarea name="message" required maxLength={5000} rows={5} placeholder="A little about your project or opportunity..." /></label>
+            <Button type="submit" icon="arrow">{status === 'sending' ? 'Sending…' : 'Send message'}</Button>
+            {status === 'sent' && (
+              <p className="form-feedback success" role="status">Thank you! Your message has been sent.</p>
+            )}
+            {status === 'error' && <p className="form-feedback error" role="alert">{error}</p>}
           </form>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { cvFileName, getCvPdf } from '../services/pdfService.js';
 const disposition = (req, name) => `${req.query.inline ? 'inline' : 'attachment'}; filename="${name}"`;
 
 export const downloadCv = async (req, res) => {
+  res.removeHeader('X-Frame-Options');
   const profile = await Profile.findOne();
   if (!profile) return res.status(404).json({ message: 'Profile not found' });
 
