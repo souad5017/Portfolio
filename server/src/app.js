@@ -4,10 +4,12 @@ import cookieParser from 'cookie-parser';
 import routes from './routes/index.js';
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 import { uploadsPath } from './middlewares/uploadMiddleware.js';
+import helmet from 'helmet';
 
 const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(uploadsPath));
