@@ -15,12 +15,15 @@ const config = {
     { header: 'Category', render: (item) => item.category },
     {
       header: 'Level',
-      render: (item) => (
-        <div className={`skill-level skill-${item.level.toLowerCase()}`}>
-          <span />
-          <small>{item.level}</small>
-        </div>
-      ),
+      render: (item) =>
+        item.level ? (
+          <div className={`skill-level skill-${item.level.toLowerCase()}`}>
+            <span />
+            <small>{item.level}</small>
+          </div>
+        ) : (
+          '—'
+        ),
     },
     { header: 'Order', render: (item) => item.order },
   ],
