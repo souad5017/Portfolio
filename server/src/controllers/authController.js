@@ -2,10 +2,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const cookieOptions = {
   httpOnly: true,
-  sameSite: 'lax',
-  secure: process.env.NODE_ENV === 'production',
+  sameSite: isProduction ? 'none' : 'lax',
+  secure: isProduction,
 };
 const WEEK = 7 * 24 * 60 * 60 * 1000;
 
