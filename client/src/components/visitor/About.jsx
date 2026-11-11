@@ -1,7 +1,7 @@
 import SectionHead from '../common/SectionHead.jsx';
 
 const stats = [
-  { number: '01', value: '3+', label: 'Years learning & building' },
+  { number: '01', value: '2+', label: 'Years learning & building' },
   { number: '02', value: '12+', label: 'Projects brought to life', featured: true },
   { number: '03', value: '∞', label: "Curiosity for what's next" },
 ];
@@ -9,7 +9,7 @@ const stats = [
 const journey = [
   'Computer Science Foundations',
   'Frontend Development',
-  'Full Stack Engineering',
+  'Full Stack Devlopment',
   'Building meaningful products',
 ];
 

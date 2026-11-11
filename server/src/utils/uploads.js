@@ -1,21 +1,24 @@
-import { unlink } from 'node:fs/promises';
-import path from 'node:path';
-import { uploadsPath } from '../middlewares/uploadMiddleware.js';
+import { v2 as cloudinary } from 'cloudinary';
 
-const UPLOAD_NAME = /^[0-9a-f-]{36}\.(png|jpg|webp|pdf)$/;
+const FOLDER = 'portfolio';
+const PUBLIC_ID = new RegExp(`^/[^/]+/image/upload/(?:v\\d+/)?(${FOLDER}/[^./]+)\\.[a-z0-9]+$`, 'i');
+
+export const uploadFile = (buffer) =>
+  new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream({ folder: FOLDER, resource_type: 'auto' }, (error, result) =>
+        error ? reject(error) : resolve(result.secure_url)
+      )
+      .end(buffer);
+  });
 
 export const removeUpload = async (url) => {
-  if (typeof url !== 'string' || !url) return;
-
-  let pathname;
   try {
-    pathname = new URL(url).pathname;
+    const { hostname, pathname } = new URL(url);
+    if (hostname !== 'res.cloudinary.com') return;
+    const publicId = PUBLIC_ID.exec(pathname)?.[1];
+    if (publicId) await cloudinary.uploader.destroy(publicId, { resource_type: 'image', invalidate: true });
   } catch {
-    return;
+    // not a file we manage, or already deleted
   }
-  if (!pathname.startsWith('/uploads/')) return;
-
-  const name = path.basename(pathname);
-  if (!UPLOAD_NAME.test(name)) return;
-  await unlink(path.join(uploadsPath, name)).catch(() => {});
 };
